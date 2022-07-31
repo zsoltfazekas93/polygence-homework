@@ -26,7 +26,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event(session: Session = Depends(get_session)):
-    Base.metadata.drop_all(bind=engine)
+    # Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     logger.info("Tables created")
 

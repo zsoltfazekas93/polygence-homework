@@ -1,10 +1,11 @@
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SpendingCreate(BaseModel):
     description: str
-    amount: float
+    amount: float = Field(
+        gt=0, description="The amount must be greater than zero")
     currency: str
 
     class Config:

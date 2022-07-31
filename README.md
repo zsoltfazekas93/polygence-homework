@@ -1,8 +1,26 @@
-# Start development server:
+# Start development server
 
-Go to the project root folder, and run the following command:
+Go to the project root folder, and run the following command
 
 - docker-compose up
+
+Run the client
+
+- http://localhost:3001
+
+Api docs
+
+- http://localhost:8080/docs
+
+Run API tests
+
+- docker exec -it backend pytest -v
+
+Run UI tests
+
+- npm run test
+
+docker exec -it frontend npm run test
 
 # Polygence Coding Challenge
 

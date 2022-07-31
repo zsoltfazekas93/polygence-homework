@@ -79,7 +79,10 @@ export default function SpendingList({
           .filter(Filter_Map[currencyFilter])
           .sort(Sort_Map[order])
           .map((spending) => (
-            <Spending key={spending.id}>
+            <Spending
+              data-testid={`spending-${spending.id}`}
+              key={`spending-${spending.id}`}
+            >
               <IconWrapper>
                 <FiDollarSign color="var(--color-blue)" />
               </IconWrapper>
