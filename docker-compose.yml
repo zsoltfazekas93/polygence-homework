@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    volumes:
+      - ./web:/react-docker:delegated
+      - './web/src:/app/src/'
+      - '/web/node_modules'
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    restart: always
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    volumes:
+      - ./python/code:/app/code
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=database
+    ports:
+      - '5432:5432'
+
+  proxy:
+    container_name: proxy
+    image: 'nginx:1.21'
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - './nginx/default.conf:/etc/nginx/conf.d/default.conf'
+    ports:
+      - '3001:80'
+
+  # pgadmin:
+  #     container_name: pgadmin
+  #     image: dpage/pgadmin4
+  #     environment:
+  #       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+  #       - PGADMIN_DEFAULT_PASSWORD=admin
+  #     ports:
+  #       - "5050:80"
+  #     depends_on:
+  #       - db
+  #     logging:
+  #       driver: none
