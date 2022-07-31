@@ -20,8 +20,6 @@ Run UI tests
 
 - npm run test
 
-docker exec -it frontend npm run test
-
 # Polygence Coding Challenge
 
 Welcome to the coding challenge portion of the Polygence Engineering interview! Thank you for taking the time to go through this exercise and show us what you can contribute to the team.
